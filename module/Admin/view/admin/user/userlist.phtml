@@ -1,0 +1,122 @@
+<div class="wrapper row-offcanvas row-offcanvas-left">
+   <!-- Left side column. contains the logo and sidebar -->
+          
+			
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">                
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                       <?php echo $title;
+                       $this->headTitle($title);?>
+                        <small> Website Users</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="dashboard.html"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active"><?php echo $this->escapeHtml('Manage User');?></li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                   <section class="content">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title"><?php echo $this->escapeHtml('All User List');?>
+                                    <small> <?php echo $this->escapeHtml('Add New User');?></small>
+                                    </h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <table id="example1" class="table table-bordered table-striped datatable1">
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Name</th>
+                                                <th>Username</th>
+                                                <th>Edmail Address</th>
+                                                <th align="center">Status</th>
+                                                <th align="center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         <?php $i=1;
+foreach ($users as $user) : ?>
+<tr id="row_<?=$user->id?>">
+   <td><?php echo $i;?></td>
+    <td><?php echo $this->escapeHtml($user->username);?></td>
+    <td><?php echo $this->escapeHtml($user->first_name);?>&nbsp;<?php echo $this->escapeHtml($user->last_name);?></td>
+    <td><?php echo $this->escapeHtml($user->email_address);?></td>
+    <td align="center">
+        <?php if($user->status==1){ ?>
+         <a href="<?php echo $this->url('user',
+            array('action'=>'editsatus', 'id' => $user->id.'-0'));?>" title="Click to Inactive this user"><i class="fa fa-check-circle"></i></a> <?php }else{ ?>
+          <a href="<?php echo $this->url('user',
+            array('action'=>'editsatus', 'id' => $user->id.'-1'));?>" title="Click to active this user"><i class="fa fa-exclamation-circle"></i></a><?php } ?>
+       
+    </td>
+    <td align="center">
+        <a href="<?php echo $this->basePath('admin/user/user/edit/'.$user->id);?>"><i class="fa fa-edit"></i></a>&nbsp;
+        <a href="javascript:void(0)" class="del" onclick="delUser(<?=$user->id?>)" id="user_<?=$user->id?>"><i class="fa fa-trash-o"></i></a>
+    </td>
+</tr>
+<?php 
+$i++;
+endforeach; ?>
+                                            
+                                    </table>
+                                   
+                                   
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                </section><!-- /.content -->
+            </aside><!-- /.right-side -->
+
+        </div><!-- ./wrapper -->
+<?php $this->inlineScript()->captureStart(); ?>
+function delUser(e){
+  if(confirm('Are you sure that you want to delete this user')){
+   $.ajax({
+			type: "POST",
+			url: "<?=$this->basePath()?>/admin/user/user/delete/"+e,
+			data: "e="+e,
+			error: function(jqXHR, exception){
+				if (jqXHR.status === 0){
+					alert('Not connect.\n Verify Network.');
+				}else if (jqXHR.status == 404){
+					alert('Requested page not found. [404]');
+				}else if (jqXHR.status == 500){
+					alert('Internal Server Error [500].');
+				}else if (exception === 'parsererror'){
+					alert('Requested JSON parse failed.');
+				}else if (exception === 'timeout'){
+					alert('Time out error.');
+				}else if (exception === 'abort'){
+					alert('Ajax request aborted.');
+				}else{
+					alert('Uncaught Error.\n' + jqXHR.responseText);
+				}
+			},
+
+			beforeSend:function(){
+						var bSend = '<center>loading.... </center>'; 
+								$('#row_'+e).css('background-color','#FFD200');
+					      },
+            success: function(response){
+                        if(response=='YES'){
+                           $('#row_'+e).fadeOut();
+                        }else{
+                           $('#row_'+e).css('background-color','#FFFFFF');
+                        }
+						}
+		});
+        }
+ 
+        
+}        
+<?php $this->inlineScript()->captureEnd(); ?>
+
+

@@ -1,0 +1,45 @@
+<?php $this->headTitle($this->title); ?>
+<div class="form-box" id="login-box">
+<?php if(count($flashMessages)) : ?>
+<center><div class="logins" style="width:450px;">
+<?php foreach ($flashMessages as $msg) : ?>
+<div class="<?=$messageClass?>"><?php echo $msg; ?></div>
+<?php endforeach; ?>
+</div></center>
+<?php endif; ?>
+            <div class="header"><?php echo $this->translate('Login') ?></div>
+            <?php $form = $this->form;
+				$form->setAttribute('action', $this->url('admin', array('action' => 'loginsubmit')));
+				$form->prepare();
+				echo $this->form()->openTag($form);
+			?>
+
+                <div class="body bg-gray">
+                    <div class="form-group">
+                        <?php echo $this->formRow($form->get('username')); ?>
+                    </div>
+                    <div class="form-group">
+							<?php echo $this->formRow($form->get('password')); ?>
+                    </div>          
+                    <div class="form-group">
+						<?php echo $this->formRow($form->get('remember_me')); ?> &nbsp;Remember me
+                    </div>
+                </div>
+                <div class="footer">                                                               
+                    <?php echo $this->formSubmit($form->get('submit'));?></p>
+					<?php echo $this->form()->closeTag(); ?>
+                    <p><a href="<?php echo $this->url('admin',array('action'=>'forgotpassword')); ?>">I forgot my password</a></p>
+                </div>
+            </form>
+
+            <div class="margin text-center">
+                <span>Sign in using social networks</span>
+                <br/>
+                <button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button>
+                <button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button>
+                <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
+
+            </div>
+        </div>
+
+ 

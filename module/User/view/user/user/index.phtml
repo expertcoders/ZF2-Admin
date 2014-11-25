@@ -1,0 +1,108 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+
+$title = 'All Users';
+$this->headTitle($title);
+
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('user', array('action'=>'add'));?>">Add New User</a>
+</p>
+<p>
+<?php if(count($flashMessages)) : ?>
+    <?php foreach ($flashMessages as $msg) : ?>
+   <div class="<?=$messageClass?>"><?php echo $msg; ?></div>
+   <?php endforeach; ?>
+<?php endif; ?>
+</p>
+<table class="table">
+<tr>
+    <th>SN</th>
+    <th>Name</th>
+    <th>Email Address</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+<?php $i=1;
+foreach ($users as $user) : ?>
+<tr id="row_<?=$user->id?>">
+   <td><?php echo $i;?></td>
+    <td><?php echo $this->escapeHtml($user->first_name);?>&nbsp;<?php echo $this->escapeHtml($user->last_name);?></td>
+    <td><?php echo $this->escapeHtml($user->email_address);?></td>
+    <td>
+        <?php if($user->status==1){ ?>
+         <a href="<?php echo $this->url('user',
+            array('action'=>'editsatus', 'id' => $user->id.'-0'));?>" title="Click to Inactive this user">Active</a> <?php }else{ ?>
+          <a href="<?php echo $this->url('user',
+            array('action'=>'editsatus', 'id' => $user->id.'-1'));?>" title="Click to active this user">InActive</a><?php } ?>
+       
+    </td>
+    <td>
+        <a href="<?php echo $this->url('user',
+            array('action'=>'edit', 'id' => $user->id));?>">Edit</a>
+        <a href="javascript:void(0)" class="del" id="user_<?=$user->id?>">Delete</a>
+    </td>
+</tr>
+<?php 
+$i++;
+endforeach; ?>
+</table>
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function()
+{
+  //for div
+  //$("div:odd").css("background-color", "#F4F4F8");
+  //$("div:even").css("background-color", "#EFF1F1");
+
+  //for table row
+  $("tr:even").css("background-color", "#F4F4F8");
+  $("tr:odd").css("background-color", "#EFF1F1");
+});
+$(document).ready(function(){
+   $('.del').click(function(){
+   var stsr=$(this).attr('id');
+   var strsArr=stsr.split('_');
+   var e=strsArr[1];
+   if(confirm('Are you sure that you want to delete this user')){
+   $.ajax({
+			type: "POST",
+			url: "<?=$this->basePath()?>/user/delete/"+e,
+			data: "e="+e,
+			error: function(jqXHR, exception){
+				if (jqXHR.status === 0){
+					alert('Not connect.\n Verify Network.');
+				}else if (jqXHR.status == 404){
+					alert('Requested page not found. [404]');
+				}else if (jqXHR.status == 500){
+					alert('Internal Server Error [500].');
+				}else if (exception === 'parsererror'){
+					alert('Requested JSON parse failed.');
+				}else if (exception === 'timeout'){
+					alert('Time out error.');
+				}else if (exception === 'abort'){
+					alert('Ajax request aborted.');
+				}else{
+					alert('Uncaught Error.\n' + jqXHR.responseText);
+				}
+			},
+
+			beforeSend:function(){
+						var bSend = '<center>loading.... </center>'; 
+								$('#row_'+e).css('background-color','#FFD200');
+					      },
+            success: function(response){
+                        if(response=='YES'){
+                           $('#row_'+e).fadeOut();
+                        }else{
+                           $('#row_'+e).css('background-color','#FFFFFF');
+                        }
+						}
+		});
+        }
+ 
+    });
+ 
+ 
+ });   
+<?php $this->inlineScript()->captureEnd(); ?>

@@ -1,0 +1,85 @@
+<div class="wrapper row-offcanvas row-offcanvas-left">
+   <!-- Left side column. contains the logo and sidebar -->
+          
+			
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">                
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                       <?php echo $title;
+                       $this->headTitle($title);?>
+                        <small> Website Users</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="dashboard.html"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active"><?php echo $this->escapeHtml('Edit User');?></li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                   <section class="content">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title"><?php echo $this->escapeHtml('Update User Information');?>
+                                    <small> <?php echo $this->escapeHtml('All Users');?></small>
+                                    </h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <?php
+                                   $form = $this->form;
+//                                   $form->setAttribute('action', $this->url(
+//                                                   'admin/', array(
+//                                               'action' => 'edit',
+//                                               'id' => $this->id,
+//                                                   )
+//                                           ));
+//                                  
+                                    $form->prepare();
+                                   ?>
+                                   <form id="user" name="user" method="post" action="/zend/zend5/ZendSkeletonApplication/public/admin/user/user/edit/19">
+                                      <?php 
+                                   echo $this->form()->openTag($form);
+                                   echo $this->formHidden($form->get('id'));
+                                   ?>
+                                   <div class="form-group">
+                                            <label for="exampleInputEmail1">Email address</label>
+                                            <?php echo $this->formRow($form->get('first_name'));?>
+                                        </div>
+                                   
+                                   <div class="form-group">
+                                            <label for="exampleInputEmail1">Last Name</label>
+                                            <?php echo $this->formRow($form->get('last_name'));?>
+                                        </div>
+                                   <div class="form-group">
+                                            <label for="exampleInputEmail1">Email Address</label>
+                                            <?php echo $this->formRow($form->get('email_address'));?>
+                                        </div>
+                                   
+                                   
+                                   <div class="form-group">
+                                            <label for="exampleInputEmail1">Status</label>
+                                            <?php echo $this->formRow($form->get('status'));?>
+                                        </div>
+                                   
+                                   
+                                   <?php 
+                                       echo $this->formSubmit($form->get('submit'));
+                                       echo "&nbsp;";
+                                       echo $this->formSubmit($form->get('cancel'));
+                                       echo $this->form()->closeTag();  
+                                   ?>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+
+                </section><!-- /.content -->
+            </aside><!-- /.right-side -->
+
+        </div><!-- ./wrapper -->
+
+
+

@@ -1,0 +1,9 @@
+<?php
+use User\View\Helper\User;
+return array(
+'factories' => array(
+'UserHelper' => function($sm) {
+return new UserHelper($sm->getServiceLocator()->get('Request'));
+}
+)
+);

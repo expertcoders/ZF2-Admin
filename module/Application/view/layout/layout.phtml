@@ -1,0 +1,130 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+
+    </head>
+    <body>
+       <style>
+          
+
+nav { margin:0px auto; width:100%; }
+nav ul {
+	padding:0;
+	margin:0;
+	list-style: none;
+	position: relative;
+	display:block;
+	}
+	
+nav ul li {
+	float:left;
+	display:list-item;
+	list-style: none; 
+	
+	background-color:#333333;
+	border-bottom: 1px solid #2ecc71;
+	}
+
+nav ul li a {
+	display:block;
+	padding:1px 10px;	
+	
+	color:#FFF;
+	font-size:14px;
+	text-decoration:none;
+	font-family: 'Bree Serif', 'serif';
+}
+
+nav ul li a {
+   border-bottom: 1px solid #2ecc71;
+	
+}
+
+li a:hover { background-color: #333333;color:#FFF; }
+
+	
+/* Change this in order to change the Dropdown symbol */
+li > a:after { content: ' »'; } 
+li > a:only-child:after { content: ''; }  	
+	
+	
+/* The Dropdown Styles */
+/* =================== */
+
+/* Hide Dropdowns by Default */
+nav ul ul {
+	display: none;
+	position: absolute; top: 50px;
+}
+	
+/* Display Dropdowns on Hover */
+nav ul li:hover > ul {
+	display:list-item;
+}
+	
+/* Fisrt Tier Dropdown */
+nav ul ul li {
+	width:170px;
+	float:none;
+	position: relative;
+	border-bottom:none;
+}
+
+/* Second, Third and more Tiers	*/
+nav ul ul ul li {
+	position: absolute relative;
+	top:-58px; 
+	left:170px;
+}
+
+       </style>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                </div>
+                <div class="collapse navbar-collapse">
+                    <?php  $this->navigation('navigation')->menu()
+                            ->setPartial('album/partials/menu');
+                       echo $this->navigation()->menu()->render();
+                    ?>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+            <?php echo $this->content; ?>
+            <hr>
+            <footer>
+                <p>This is default Layout</p>
+            </footer>
+            
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

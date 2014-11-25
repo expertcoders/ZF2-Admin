@@ -1,0 +1,52 @@
+<!-- Navigation -->
+<?php echo $this->nevigation ?>
+<div id="page-wrapper">
+<div class="container-fluid">
+<div class="row">
+                    <div class="col-lg-12">
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-edit"></i> User Profile
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+	<?php 
+ $title = 'All Posts';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <p>
+     <a href="<?php echo $this->url('post', array('action'=>'add'));?>">Add New Post</a>
+ </p>
+
+ <table class="table">
+ <tr>
+     <th>Title</th>
+     <th>Description</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($posts as $post) : ?>
+ <tr>
+     <td><?php echo $this->escapeHtml($post->title);?></td>
+     <td><?php echo $this->escapeHtml($post->description);?></td>
+     <td>
+         <a href="<?php echo $this->url('post',
+             array('action'=>'edit', 'id' => $post->id));?>">Edit</a>
+         <a href="<?php echo $this->url('album',
+             array('action'=>'delete', 'id' => $post->id));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
+
+
+</div>
+            <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+
+

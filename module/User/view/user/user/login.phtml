@@ -1,0 +1,35 @@
+<?php
+$title = 'User Registration';
+$this->headTitle($title);
+?>
+<br/>
+<?php if(count($flashMessages)) : ?>
+<center><div class="logins" style="width:350px;">
+<?php foreach ($flashMessages as $msg) : ?>
+<div class="<?=$messageClass?>"><?php echo $msg; ?></div>
+<?php endforeach; ?>
+</div></center>
+<?php endif; ?>
+<section class="container">
+    <div class="login">
+      <h1>Member Login</h1>
+      <?php $form = $this->form;
+			$form->setAttribute('action', $this->url('user', array('action' => 'loginsubmit')));
+			$form->prepare();
+			echo $this->form()->openTag($form);
+	  ?>
+        <p><?php echo $this->formRow($form->get('username')); ?></p>
+        <p><?php echo $this->formRow($form->get('password')); ?></p>
+        <p class="remember_me">
+          <label>
+            <input type="checkbox" name="remember_me" id="remember_me">
+            Remember me on this computer
+          </label>
+        </p>
+        <p class="submit"><?php echo $this->formSubmit($form->get('submit'));?></p>
+      <?php echo $this->form()->closeTag(); ?>
+    </div>
+    <div class="login-help">
+      <p>Forgot your password? <a href="forgotpassowrd">Click here to reset it</a>.</p>
+    </div>
+</section>

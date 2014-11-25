@@ -1,0 +1,76 @@
+<ul class="sidebar-menu">
+   <li class="active">
+      <a href="dashboard.html">
+         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+      </a>
+   </li>
+
+   <li class="treeview">
+      <a href="#">
+         <i class="fa fa-bar-chart-o"></i>
+         <span>Configuration Manager</span>
+         <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+         <li><a href="administrator.html"><i class="fa fa-angle-double-right"></i> Administrator</a></li>
+         <li><a href="newadmin.html"><i class="fa fa-angle-double-right"></i> Add Administrator</a></li>
+         <li><a href="systemconfiguration.html"><i class="fa fa-angle-double-right"></i> System Configuration</a></li>
+      </ul>
+   </li>
+   <li class="treeview">
+      <a href="#">
+         <i class="fa fa-laptop"></i>
+         <span>Manage Content</span>
+         <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+         <li><a href="manageimage.html"><i class="fa fa-angle-double-right"></i> Image/Video Gallery</a></li>
+         <li><a href="portfolio.html"><i class="fa fa-angle-double-right"></i> Portfolio</a></li>
+         <li><a href="managecategory.html"><i class="fa fa-angle-double-right"></i> Manage category</a></li>
+         <li><a href="managemenu.html"><i class="fa fa-angle-double-right"></i> Manage Menu </a></li>
+         <li><a href="timeline.html"><i class="fa fa-angle-double-right"></i> Timeline</a></li>
+      </ul>
+   </li>
+   <li class="treeview">
+      <a href="#">
+         <i class="fa fa-edit"></i> <span>Static Page Manager</span>
+         <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+         <li><a href="viewallpages.html"><i class="fa fa-angle-double-right"></i> View all pages</a></li>
+         <li><a href="editors.html"><i class="fa fa-angle-double-right"></i> Editors</a></li>
+      </ul>
+   </li>
+   <li class="treeview">
+      <a href="#">
+         <i class="fa fa-edit"></i> <span>Manager Users</span>
+         <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+         <li><a href="<?php echo $this->basePath('/admin/user'); ?>"><i class="fa fa-angle-double-right"></i>View all users</a></li>
+         <li><a href="<?php echo $this->url('user', array('action' => 'add')); ?>"><i class="fa fa-angle-double-right"></i>Add New User</a></li>
+      </ul>
+   </li>
+   <li class="treeview">
+      <a href="#">
+         <i class="fa fa-table"></i> <span>Tables</span>
+         <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+         <li><a href="simple.html"><i class="fa fa-angle-double-right"></i> Simple tables</a></li>
+         <li><a href="data.html"><i class="fa fa-angle-double-right"></i> Data tables</a></li>
+      </ul>
+   </li>
+   <li>
+      <a href="calendar.html">
+         <i class="fa fa-calendar"></i> <span>Calendar</span>
+         <small class="badge pull-right bg-red">3</small>
+      </a>
+   </li>
+   <li>
+      <a href="mailbox.html">
+         <i class="fa fa-envelope"></i> <span>Mailbox</span>
+         <small class="badge pull-right bg-yellow">12</small>
+      </a>
+   </li>
+</ul>

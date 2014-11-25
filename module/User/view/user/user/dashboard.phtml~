@@ -1,0 +1,16 @@
+ <div id="wrapper">
+
+        <!-- Navigation -->
+	<?php echo $this->nevigation ?>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+		<?php echo $this->main_content ?>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>

@@ -1,0 +1,37 @@
+<?php echo $this->doctype(); ?>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/user/plugins/morris.css')
+                        ->prependStylesheet($this->basePath() . '/css/user/sb-admin.css')
+                        ->prependStylesheet($this->basePath() . '/css/user/bootstrap.min.css')
+                        ->prependStylesheet($this->basePath() . '/font-awesome-4.1.0/css/font-awesome.min.css');
+                        ?>
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/user/jquery.js'); ?>
+    </head>
+<body>
+<div id="wrapper">
+
+	<?php echo $this->content; ?>
+</div>
+
+<?php echo $this->inlineScript() ?>
+	   <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/user/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/user/plugins/morris/raphael.min.js')
+            ->prependFile($this->basePath() . '/js/user/plugins/morris/morris.min.js')
+            ->prependFile($this->basePath() . '/js/user/plugins/morris/morris-data.js')
+            ->prependFile($this->basePath() . '/js/user/jquery.js'); ?>
+
+</body>
+</html>

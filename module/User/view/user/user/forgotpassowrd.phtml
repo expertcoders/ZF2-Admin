@@ -1,0 +1,27 @@
+<?php
+$title = 'User Registration';
+$this->headTitle($title);
+?>
+
+<section class="container">
+    <div class="login">
+      <h1>Forgot Password</h1>
+      <?php $form = $this->form;
+			$form->setAttribute('action', $this->url('user', array('action' => 'forgotpassword')));
+			$form->prepare();
+			echo $this->form()->openTag($form);
+	  ?>
+        <p><?php echo $this->formRow($form->get('email_address')); ?></p>
+        <p class="remember_me">
+          <label>
+            Password will send to Email Address
+          </label>
+        </p>
+        <p class="submit"><?php echo $this->formSubmit($form->get('submit'));?></p>
+      <?php echo $this->form()->closeTag(); ?>
+    </div>
+    <div class="login-help">
+      <p>Already registered? <a href="login">Click here to login</a>.</p>
+    </div>
+</section>
+
