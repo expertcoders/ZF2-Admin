@@ -63,11 +63,6 @@ return array(
         'doctype'                  => 'HTML5',
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
-        'template_map' => array(
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
-        ),
          'template_path_stack' => array(
             'admin' => __DIR__ . '/../view/',
             'paginator-slide' => __DIR__ . '/../view/layout/slidePaginator.phtml',

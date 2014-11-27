@@ -1,0 +1,115 @@
+@media only screen and (max-width: 992px){
+	
+		/* Force table to not be like tables anymore */
+		table, thead, tbody, th, td, tr { 
+			display: block; 
+		}
+		
+		/* Hide table headers (but not display: none;, for accessibility) */
+		thead tr, tfoot tr { 
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		
+		tr {margin-bottom: 20px; }
+		
+		td { 
+			/* Behave  like a "row" */
+			border: none;
+			/*border-bottom: 1px solid #eee; */
+			position: relative;
+			padding-left: 45% !important; 
+		}
+		.table-bordered{
+			border: none;
+		}
+		
+		td:before { 
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			top: 6px;
+			left: 6px;
+			width: 45%; 
+			padding-right: 10px; 
+			white-space: nowrap;
+		}
+		
+		.caption-width{width: auto;}
+		
+		/*
+		Label the data
+		*/
+		.admin-detail td:nth-of-type(1):before { content: "Number"; }
+		.admin-detail td:nth-of-type(2):before { content: "Administrator"; }
+		.admin-detail td:nth-of-type(3):before { content: "Email Id"; }
+		.admin-detail td:nth-of-type(4):before { content: "Status"; }
+		.admin-detail td:nth-of-type(5):before { content: "View"; }
+		.admin-detail td:nth-of-type(6):before { content: "Edit"; }
+		.admin-detail td:nth-of-type(7):before { content: "Delete"; }
+		
+		
+		.admin-right td:nth-of-type(1):before { content: "Number"; }
+		.admin-right td:nth-of-type(2):before { content: "Add Record"; }
+		.admin-right td:nth-of-type(3):before { content: "Edit Record"; }
+		.admin-right td:nth-of-type(4):before { content: "Delete Record"; }
+		
+		.manage-image td:nth-of-type(1):before { content: "Number"; }
+		.manage-image td:nth-of-type(2):before { content: "Title"; }
+		.manage-image td:nth-of-type(3):before { content: "Caption"; }
+		.manage-image td:nth-of-type(4):before { content: "Image"; }
+		.manage-image td:nth-of-type(5):before { content: "Status"; }
+		.manage-image td:nth-of-type(6):before { content: "View"; }
+		.manage-image td:nth-of-type(7):before { content: "Edit"; }
+		.manage-image td:nth-of-type(8):before { content: "Delete"; }
+		
+		.manage-portfolio td:nth-of-type(1):before { content: "Number"; }
+		.manage-portfolio td:nth-of-type(2):before { content: "Title"; }
+		.manage-portfolio td:nth-of-type(3):before { content: "Image"; }
+		.manage-portfolio td:nth-of-type(4):before { content: "Link"; }
+		.manage-portfolio td:nth-of-type(5):before { content: "Status"; }
+		.manage-portfolio td:nth-of-type(6):before { content: "View"; }
+		.manage-portfolio td:nth-of-type(7):before { content: "Edit"; }
+		.manage-portfolio td:nth-of-type(8):before { content: "Delete"; }
+		
+		.manage-category td:nth-of-type(1):before { content: "Number"; }
+		.manage-category td:nth-of-type(2):before { content: "Name"; }
+		.manage-category td:nth-of-type(3):before { content: "Type"; }
+		.manage-category td:nth-of-type(4):before { content: "Image"; }
+		.manage-category td:nth-of-type(5):before { content: "Status"; }
+		.manage-category td:nth-of-type(6):before { content: "View"; }
+		.manage-category td:nth-of-type(7):before { content: "Edit"; }
+		.manage-category td:nth-of-type(8):before { content: "Delete"; }
+		
+		.manage-menu td:nth-of-type(1):before { content: "Number"; }
+		.manage-menu td:nth-of-type(2):before { content: "Menu"; }
+		.manage-menu td:nth-of-type(3):before { content: "Menu Url"; }
+		.manage-menu td:nth-of-type(4):before { content: "Page Link"; }
+		.manage-menu td:nth-of-type(5):before { content: "Description"; }
+		.manage-menu td:nth-of-type(6):before { content: "Edit"; }
+		.manage-menu td:nth-of-type(7):before { content: "Delete"; }
+		
+		
+		.viewall td:nth-of-type(1):before { content: "Number"; }
+		.viewall td:nth-of-type(2):before { content: "Page Name"; }
+		.viewall td:nth-of-type(3):before { content: "Title"; }
+		.viewall td:nth-of-type(4):before { content: "Category"; }
+		.viewall td:nth-of-type(5):before { content: "Status"; }
+		.viewall td:nth-of-type(6):before { content: "View"; }
+		.viewall td:nth-of-type(7):before { content: "Edit"; }
+		.viewall td:nth-of-type(8):before { content: "Delete"; }
+		
+		.datatable1 td:nth-of-type(1):before { content: "Rendering engine"; }
+		.datatable1 td:nth-of-type(2):before { content: "Browser"; }
+		.datatable1 td:nth-of-type(3):before { content: "Platform(s)"; }
+		.datatable1 td:nth-of-type(4):before { content: "Engine version"; }
+		.datatable1 td:nth-of-type(5):before { content: "CSS grade"; }
+		
+		
+}
+
+@media only screen and (max-width: 530px){
+	div.dataTables_filter input{width: 8em; }
+	div.dataTables_paginate{display: none;}
+}
