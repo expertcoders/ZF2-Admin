@@ -55,7 +55,23 @@ Username: pradeep
 Password: 123456
 ```
 
- 
+Remove public from URL	
+========================================================================
+If you want to remove public from URl, then follow these steps
+Copy all the files and directory from /public deirectory
 
+Paste all the copied files and directory in root directory
+
+Open index.php and edit the line number 6 and comment like this
+
+```
+//chdir(dirname(__DIR__));
+
+```
+
+done!!!!!!!!!111
+
+Now you can access
+http://localhost/yourprojectname/
 
 
