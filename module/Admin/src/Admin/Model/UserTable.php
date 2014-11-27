@@ -1,6 +1,4 @@
-<?php
-namespace Admin\Model;
-
+<?php namespace Admin\Model;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 
@@ -43,31 +41,38 @@ class UserTable
 	
 	}
 	
-		
-    public function saveUser(User $user,$type='Add')
+	 public function save(User $user)
     {
-       if($type=='Update'){
-	     $d=(array) $user;  
-    	 $data['status']=$d['status'];
-		 $data['id']=$d['id'];
-         $id = (int)$d->id;
-		 
-       }else{
         $data = array(
+            'username' => $user->username,
             'first_name' => $user->first_name,
-            'last_name'  => $user->last_name,
-            'email_address'  => $user->email_address,
+            'last_name' => $user->last_name,
+            'email_address' => $user->email_address,
+            'status' => $user->status,
         );
-        
+
         $id = (int)$user->id;
-        }
-        
-        
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
             if ($this->getUser($id)) {
-                $this->tableGateway->update((array)$data, array('id' => $id));
+                $this->tableGateway->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('Form id does not exist');
+            }
+        }
+    }
+    
+    
+    
+    public function saveUser(User $data)
+    {
+        $id = (int)$data['id'];
+        if ($id == 0) {
+            $this->tableGateway->insert($data);
+        } else {
+            if ($this->getUser($id)) {
+                $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
             }

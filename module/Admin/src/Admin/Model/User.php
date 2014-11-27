@@ -14,7 +14,7 @@ use Zend\Form\Annotation;                         // <-- Add this for making log
 class User implements InputFilterAwareInterface
 {
   
-   
+   public $inputFilter; 
    /**
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Required({"required":"true" })
@@ -84,6 +84,26 @@ class User implements InputFilterAwareInterface
                 ),
             )));
 
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'username',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 6,
+                            'max'      => 25,
+                        ),
+                    ),
+                ),
+            )));
+
+            
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'first_name',
                 'required' => true,

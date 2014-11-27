@@ -23,24 +23,10 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'user' => array(
+                        'user' => array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => '/user[/:action][/:id]',
-                            'constraints' => array(
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\User',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ),
-                    'admin/user' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => 'admin/user[/:action][/:id]',
                             'constraints' => array(
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+'
@@ -55,24 +41,12 @@ return array(
             ),
         ),
     ),
-  
-    
-    'view_manager' => array(
-        'display_not_found_reason' => false,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
-        'template_map' => array(
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
-        ),
-         'template_path_stack' => array(
+   'view_manager' => array(
+           'template_path_stack' => array(
             'admin' => __DIR__ . '/../view/',
             'paginator-slide' => __DIR__ . '/../view/layout/slidePaginator.phtml',
         ),
-    ),    
+    ),
     'view_helpers' => array(
         'invokables'=> array(
             'admin_helper' => 'Admin\View\Helper\Adminhelper',  
@@ -80,8 +54,8 @@ return array(
         )
     ),
     'module_layouts' => array(
-        'Application' => array(
-            'default' => 'layout/default'
+        'Admin' => array(
+            'default' => 'layout/admin'
         )
     ),
 );

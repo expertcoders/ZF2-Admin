@@ -4,6 +4,7 @@ namespace Admin;
 // Add these import statements:
 use Admin\Model\Admin;
 use Admin\Model\AdminTable;
+use Zend\Mvc\ModuleRouteListener;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;    
@@ -41,6 +42,17 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new User());
+                    return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Admin\Model\UserTable' => function($sm) {
+                    $tableGateway = $sm->get('UserTableGateway');
+                    $table = new Model\UserTable($tableGateway);
+                    return $table;
+                },
+                'UserTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\User());
                     return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
                 },
             ),

@@ -3,8 +3,8 @@ namespace Admin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Admin\Model\User;          // <-- Add this import
-use Admin\Form\UserForm;       // <-- Add this import
+use Admin\Model\Post;          // <-- Add this import
+use Admin\Form\PostForm;       // <-- Add this import
 use Zend\View\Helper\UserHelper;
 use Zend\Http\Request;
 use Zend\Stdlib\ParametersInterface;
@@ -18,13 +18,12 @@ use Zend\Authentication\Storage\Session as SessionStorage;
 use Zend\Db\TableGateway\Feature\RowGatewayFeature;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Mvc\Controller\Plugin\FlashMessenger;
-use Zend\Mvc\Controller\Plugin\Redirect;
 
-class UserController extends AbstractActionController
+class PostController extends AbstractActionController
 {
 
 
-    protected $adminUserTable;
+    protected $userTable;
     
     protected $dbAdapter;
     
@@ -87,7 +86,7 @@ class UserController extends AbstractActionController
          }else{
             $messageClass='';
          }
-         $title="User List";
+         $title="Post List";
          
          $view = new ViewModel();
          $identity=$this->getAuthIdentities();
@@ -102,20 +101,31 @@ class UserController extends AbstractActionController
          $leftSideBar=new ViewModel(array('UserAuth'=>$identity));
          $leftSideBar->setTemplate('admin/admin/leftsidebar');
 
+         
+         //Data with pagination
+         $paginator = $this->getPostTable()->fetchAll(true);
+         // set the current page to what has been passed in query string, or to 1 if none set
+         $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+         // set the number of items per page to 10
+         $paginator->setItemCountPerPage(10);
+         $view = new ViewModel();
+            
          $mainDashboard=new ViewModel(array(
-            'users' => $this->getUserTable()->fetchAll(),
-            'title'=>$title,
-            'flashMessages' => $this->flashMessenger()->getMessages(),
-            'messageClass'=>$messageClass,  
-         ));
-         $mainDashboard->setTemplate('admin/user/userlist');
+				'posts' => $this->getPostTable()->fetchAll(true),
+                'paginator'=>$paginator,
+                'title'=>$title,
+                'flashMessages' => $this->getMessage('Message'),
+				'messageClass'=>$this->getMessage('Class')
+			));
+         $mainDashboard->setTemplate('admin/user/postlist');
          // Variable=>$headerView, Filename=>header
 
          $view->addChild($headerView,'header')
          ->addChild($leftSideBar,'leftsidebar')
          ->addChild($mainDashboard,'maindashboard');
 
-          return $view;
+         return $view;
+         
          }else{
             return $this->redirect()->toRoute('admin', array('action' => 'index'));
          }
@@ -196,9 +206,10 @@ class UserController extends AbstractActionController
                $saveUser['last_name']=$form->getData()->last_name;
                $saveUser['email_address']=$form->getData()->email_address;
                $saveUser['status']=$form->getData()->status;
-               $this->getUserTable()->save($form->getData());
-               return $this->redirect()->toUrl(SITEPATH.'admin/user/user');
-              
+               $this->getUserTable()->saveUser($saveUser);
+               // Redirect to list of albums
+               //return $this->redirect()->toRoute('admin/user',array('action'=>'index'));
+               return $this->redirect()->toRoute('admin/user');
             }
         }
 
@@ -256,11 +267,11 @@ class UserController extends AbstractActionController
     
     public function getUserTable()
     {
-        if (!$this->adminUserTable) {
+        if (!$this->userTable) {
             $sm = $this->getServiceLocator();
-            $this->adminUserTable = $sm->get('Admin\Model\UserTable');
+            $this->userTable = $sm->get('Admin\Model\PostTable');
         }
-        return $this->adminUserTable;
+        return $this->userTable;
     }
     
     

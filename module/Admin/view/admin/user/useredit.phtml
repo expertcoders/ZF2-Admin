@@ -39,13 +39,18 @@
 //                                  
                                     $form->prepare();
                                    ?>
-                                   <form id="user" name="user" method="post" action="/zend/zend5/ZendSkeletonApplication/public/admin/user/user/edit/19">
+                                   <form id="user" name="user" method="post" action="<?=SITEPATH?>admin/user/user/edit/<?php echo $this->id; ?>">
                                       <?php 
                                    echo $this->form()->openTag($form);
                                    echo $this->formHidden($form->get('id'));
                                    ?>
                                    <div class="form-group">
-                                            <label for="exampleInputEmail1">Email address</label>
+                                            <label for="exampleInputEmail1">Username</label>
+                                            <?php echo $this->formRow($form->get('username'));?>
+                                        </div>
+                                   
+                                    <div class="form-group">
+                                            <label for="exampleInputEmail1">First Name</label>
                                             <?php echo $this->formRow($form->get('first_name'));?>
                                         </div>
                                    

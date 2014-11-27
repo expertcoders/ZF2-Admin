@@ -28,47 +28,83 @@
                                     </h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
-                                    <table id="example1" class="table table-bordered table-striped datatable1">
-                                        <thead>
-                                            <tr>
-                                                <th>SN</th>
-                                                <th>User</th>
-                                                <th>Name</th>
-                                                <th>Edmail Address</th>
-                                                <th align="center">Status</th>
-                                                <th align="center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                         <?php $i=1;
-foreach ($users as $user) : ?>
-<tr id="row_<?=$user->id?>">
-   <td><?php echo $i;?></td>
-    <td><?php echo $this->escapeHtml($user->username);?></td>
-    <td><?php echo $this->escapeHtml($user->first_name);?>&nbsp;<?php echo $this->escapeHtml($user->last_name);?></td>
-    <td><?php echo $this->escapeHtml($user->email_address);?></td>
-    <td align="center">
-        <?php if($user->status==1){ ?>
-         <a href="<?php echo $this->url('user',
-            array('action'=>'editsatus', 'id' => $user->id.'-0'));?>" title="Click to Inactive this user"><font color="red"><i class="fa fa-exclamation-circle"></i></font></a> <?php }else{ ?>
-          <a href="<?php echo $this->url('user',
-            array('action'=>'editsatus', 'id' => $user->id.'-1'));?>" title="Click to active this user"><font color="green"><i class="fa fa-check-circle"></i></font></a><?php } ?>
-       
-    </td>
-    <td align="center">
-        <a href="<?php echo $this->basePath('admin/user/user/edit/'.$user->id);?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $this->basePath('admin/user/user/view/'.$user->id);?>"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
-        <a href="javascript:void(0)" class="del" onclick="delUser(<?=$user->id?>)" id="user_<?=$user->id?>">
-           <font color="red"><i class="fa fa-trash-o"></i></font>
-        </a>
-    </td>
+                                   	<?php if(count($flashMessages)) : ?>
+				<center><div class="logins" style="width:100%;">
+				<?php foreach ($flashMessages as $msg) : ?>
+				<div class="<?=$messageClass?>"><?php echo $msg; ?></div>
+				<?php endforeach;  ?>
+				</div></center>
+				<?php endif; ?>
+            
+ <table id="example1" class="table table-bordered table-striped datatable1" width="100%">
+ <tr>
+     <th>SN</th>
+     <th>User</th>
+     <th>Title</th>
+     <th>Description</th>
+     <th>Status</th>
+     <th>Created</th>
+     <th>Action</th>
+ </tr>
+ <?php $i=1;foreach ($this->paginator as $post) :
+    //echo "<pre>";
+    //print_r($post);
+    ?>
+ <tr id="postRow_<?=$post->id?>">
+    <th><?php echo $i;?></th> 
+    <td><?php echo $this->escapeHtml($post->first_name);?>&nbsp;
+        <?php echo $this->escapeHtml($post->last_name);?></td>
+     <td><?php echo substr($this->escapeHtml($post->title),0,25);?>...</td>
+     <td><?php echo substr($this->escapeHtml($post->post),0,50);?>...</td>
+     <td><?php echo $this->escapeHtml($post->created);?></td>
+     <td><?php if($post->status==0){ ?> <font color="green"><b>Published</b></font><?php }else{ ?> <font color="red"><b>Un-Published</b></font> <?php } ?> </td>
+     <td>
+         <a href="<?php echo $this->url('post',
+             array('action'=>'edit', 'id' => $post->id));?>">Edit</a> |
+         <a href="javascript:void(0)" onclick="deletePost(<?php echo $post->id;?>)">Delete</a>
+     </td>
+ </tr>
+ <?php $i++; endforeach; ?>
+</table>
+<table width="100%">
+<tr>
+   <td align="left">
+       <?php
+ // add at the end of the file after the table
+ echo $this->paginationControl(
+     // the paginator object
+     $this->paginator,
+     // the scrolling style "Elastic","All","Jumping","Sliding"
+     'Jumping',
+     // the partial to use to render the control
+     array('partial/jumping.phtml', 'Post'),
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'post'
+     )
+ );
+ ?>
+   </td>
+   <td align="center">
+    <?php echo $this->paginationControl(
+                                    $this->paginator,
+                                    'Jumping',
+                                    array('partial/search.phtml', 'Post'),
+                                    array('route' => 'post')
+                           );
+       ?>
+ </td>
+   <td align="right">
+       <?php echo $this->paginationControl(
+                                    $this->paginator,
+                                    'Jumping',
+                                    array('partial/paginator.phtml', 'Post'),
+                                    array('route' => 'post')
+                           );
+       ?>
+   </td>
 </tr>
-<?php 
-$i++;
-endforeach; ?>
-                                            
-                                    </table>
-                                   
-                                   
+ </table>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
                         </div>
