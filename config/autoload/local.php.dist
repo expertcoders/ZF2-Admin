@@ -12,7 +12,7 @@
  */
 return array(
     'db' => array(
-        'username' => 'root',
-        'password' => 'sparx',
+        'username' => 'DATABASE_USER_NAME',
+        'password' => 'DATABASE_PASSWORD',
     ),
 );
