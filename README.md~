@@ -65,6 +65,7 @@ Paste all the copied files and directory in root directory
 Open index.php and edit the line number 6 and comment like this
 
 ```
+
 //chdir(dirname(__DIR__));
 
 ```
@@ -72,6 +73,10 @@ Open index.php and edit the line number 6 and comment like this
 done!!!!!!!!!111
 
 Now you can access
+```
+
 http://localhost/yourprojectname/
+
+```
 
 

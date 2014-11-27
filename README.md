@@ -70,7 +70,7 @@ Open index.php and edit the line number 6 and comment like this
 
 ```
 
-done!!!!!!!!!111
+done!!
 
 Now you can access
 ```
