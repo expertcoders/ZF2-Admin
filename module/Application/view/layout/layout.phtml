@@ -1,134 +1,309 @@
-<?php 
-if (defined('RUNNING_FROM_ROOT')) {
-  $this->plugin('basePath')->setBasePath($this->basePath().'/public');
-} ?>
-<?php echo $this->doctype(); ?>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
-
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
-
-        <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/style.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
-
-        <!-- Scripts -->
+<!DOCTYPE HTML>
+<!--
+	TXT by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+ 	    <?php echo $this->headTitle('ZF2 '. $this->translate('ZF2 Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		  <!-- Scripts -->
         <?php echo $this->headScript()
-            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')
-            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
+			->prependFile($this->basePath() . '/js/Front/js/init.js')
+            ->prependFile($this->basePath() . '/js/Front/js/skel-layers.min.js')
+            ->prependFile($this->basePath() . '/js/Front/js/skel.min.js')
+            ->prependFile($this->basePath() . '/js/Front/js/jquery.dropotron.min.js')
+            ->prependFile($this->basePath() . '/js/Front/js/jquery.min.js');
+        ?>
+		<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/Front/css/skel.css')
+                        ->prependStylesheet($this->basePath() . '/css/Front/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/Front/css/style-desktop.css') ?>
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	</head>
+	<body class="homepage">
 
-    </head>
-    <body>
-       <style>
-          
+		<!-- Header -->
+			<header id="header">
+				<div class="logo container">
+					<div>
+						<h1><a href="index.html" id="logo">ZF2</a></h1>
+						<p>Blog Application</p>
+					</div>
+				</div>
+			</header>
 
-nav { margin:0px auto; width:100%; }
-nav ul {
-	padding:0;
-	margin:0;
-	list-style: none;
-	position: relative;
-	display:block;
-	}
-	
-nav ul li {
-	float:left;
-	display:list-item;
-	list-style: none; 
-	
-	background-color:#333333;
-	border-bottom: 1px solid #2ecc71;
-	}
+		<!-- Nav -->
+			<nav id="nav" class="skel-layers-fixed">
+				<ul>
+					<li class="current"><a href="<?php echo $this->url('home') ?>">Home</a></li>
+					<li><a href="<?php echo $this->url('post') ?>">Blog</a></li>
+					<li><a href="<?php echo $this->url('user',array('action'=>'login')) ?>">Login</a>
+					<ul>
+							<li><a href="<?php echo $this->url('admin',array('action'=>'login')) ?>">Admin Login</a></li>
+							<li><a href="<?php echo $this->url('user',array('action'=>'login')) ?>">User Login</a></li>
+					</ul>
+					</li>
+				</ul>
+			</nav>
+		
+		<!-- Banner -->
+			<div id="banner-wrapper">
+				<section id="banner">
+					<h2>Welcome to ZF2 Blogging</h2>
+					<p>A full feature User, Admin, Blog Module</p>
+					<a href="<?php echo $this->url('post') ?>" class="button">Alright let's go</a>
+				</section>
+			</div>
 
-nav ul li a {
-	display:block;
-	padding:1px 10px;	
-	
-	color:#FFF;
-	font-size:14px;
-	text-decoration:none;
-	font-family: 'Bree Serif', 'serif';
-}
+		<!-- Main -->
+			<div id="main-wrapper">
+				<div id="main" class="container">
+					<div class="row 200%">
+						<div class="12u">
+							
+							<!-- Highlight -->
+								<section class="box highlight">
+									<ul class="special">
+										<li><a href="#" class="icon fa-search"><span class="label">Magnifier</span></a></li>
+										<li><a href="#" class="icon fa-tablet"><span class="label">Tablet</span></a></li>
+										<li><a href="#" class="icon fa-flask"><span class="label">Flask</span></a></li>
+										<li><a href="#" class="icon fa-cog"><span class="label">Cog?</span></a></li>
+									</ul>
+									<header>
+										<h2>A random assortment of icons in circles</h2>
+										<p>And some text that attempts to explain their significance</p>
+									</header>
+									<p>
+										Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus. Praesent semper mod quis eget mi. Etiam eu<br />
+										ante risus. Aliquam erat volutpat. Aliquam luctus et mattis lectus amet pulvinar. Nam nec turpis consequat.
+									</p>
+								</section>
 
-nav ul li a {
-   border-bottom: 1px solid #2ecc71;
-	
-}
+						</div>
+					</div>
+					<div class="row 200%">
+						<div class="12u">
 
-li a:hover { background-color: #333333;color:#FFF; }
+							<!-- Features -->
+								<section class="box features">
+									<h2 class="major"><span>Latest Post</span></h2>
+									<div>
+										<div class="row">
+											<div class="3u">
+												
+												<!-- Feature -->
+													<section class="box feature">
+														<a href="#" class="image featured"><img src="<?php echo $this->basePath()?>/img/Front/images/pic01.jpg" alt="" /></a>
+														<h3><a href="#">Nature</a></h3>
+														<p>
+															Phasellus quam turpis, feugiat sit amet ornare in, a hendrerit in 
+															lectus dolore. Praesent semper mod quis eget sed etiam eu ante risus.
+														</p>
+													</section>
+										
+											</div>
+											<div class="3u">
+												
+												<!-- Feature -->
+													<section class="box feature">
+														<a href="#" class="image featured"><img src="<?php echo $this->basePath()?>/img/Front/images/pic02.jpg" alt="" /></a>
+														<h3><a href="#">Another Subheading</a></h3>
+														<p>
+															Phasellus quam turpis, feugiat sit amet ornare in, a hendrerit in 
+															lectus dolore. Praesent semper mod quis eget sed etiam eu ante risus.
+														</p>
+													</section>
+										
+											</div>
+											<div class="3u">
+												
+												<!-- Feature -->
+													<section class="box feature">
+														<a href="#" class="image featured"><img src="<?php echo $this->basePath()?>/img/Front/images/pic03.jpg" alt="" /></a>
+														<h3><a href="#">And Another</a></h3>
+														<p>
+															Phasellus quam turpis, feugiat sit amet ornare in, a hendrerit in 
+															lectus dolore. Praesent semper mod quis eget sed etiam eu ante risus.
+														</p>
+													</section>
+										
+											</div>
+											<div class="3u">
+												
+												<!-- Feature -->
+													<section class="box feature">
+														<a href="#" class="image featured"><img src="<?php echo $this->basePath()?>/img/Front/images/pic04.jpg" alt="" /></a>
+														<h3><a href="#">And One More</a></h3>
+														<p>
+															Phasellus quam turpis, feugiat sit amet ornare in, a hendrerit in 
+															lectus dolore. Praesent semper mod quis eget sed etiam eu ante risus.
+														</p>
+													</section>
+										
+											</div>
+										</div>
+										<div class="row">
+											<div class="12u">
+												<ul class="actions">
+													<li><a href="#" class="button big">Do Something</a></li>
+													<li><a href="#" class="button alt big">Think About It</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</section>
 
-	
-/* Change this in order to change the Dropdown symbol */
-li > a:after { content: ' »'; } 
-li > a:only-child:after { content: ''; }  	
-	
-	
-/* The Dropdown Styles */
-/* =================== */
+						</div>
+					</div>
+					<div class="row 200%">
+						<div class="12u">
 
-/* Hide Dropdowns by Default */
-nav ul ul {
-	display: none;
-	position: absolute; top: 50px;
-}
-	
-/* Display Dropdowns on Hover */
-nav ul li:hover > ul {
-	display:list-item;
-}
-	
-/* Fisrt Tier Dropdown */
-nav ul ul li {
-	width:170px;
-	float:none;
-	position: relative;
-	border-bottom:none;
-}
+							<!-- Blog -->
+								<section class="box blog">
+									<h2 class="major"><span>Another Major Heading</span></h2>
+									<div>
+										<div class="row">
+											<div class="9u">
+												<div class="content content-left">
+												
+													<!-- Featured Post -->
+														<article class="box post">
+															<header>
+																<h3><a href="#">Here's a really big heading</a></h3>
+																<p>With a smaller subtitle that attempts to elaborate</p>
+																<ul class="meta">
+																	<li class="icon fa-clock-o">15 minutes ago</li>
+																	<li class="icon fa-comments"><a href="#">8</a></li>
+																</ul>
+															</header>
+															<a href="#" class="image featured"><img src="<?php echo $this->basePath()?>/img/Front/images/pic05.jpg" alt="" /></a>
+															<p>
+																Phasellus quam turpis, feugiat sit amet ornare in, a hendrerit in lectus. Praesent 
+																semper mod quis eget mi. Etiam sed ante risus aliquam erat et volutpat. Praesent a 
+																dapibus velit. Curabitur sed nisi nunc, accumsan vestibulum lectus. Lorem ipsum 
+																dolor sit non aliquet sed, tempor et dolor.  Praesent a dapibus velit. Curabitur 
+																accumsan.
+															</p>
+															<a href="#" class="button">Continue Reading</a>
+														</article>
+												
+												</div>
+											</div>
+											<div class="3u">
+												<div class="sidebar">
+											
+													<!-- Archives -->
+														<ul class="divided">
+															<li>
+																<article class="box post-summary">
+																	<h3><a href="#">A Subheading</a></h3>
+																	<ul class="meta">
+																		<li class="icon fa-clock-o">6 hours ago</li>
+																		<li class="icon fa-comments"><a href="#">34</a></li>
+																	</ul>
+																</article>
+															</li>
+															<li>
+																<article class="box post-summary">
+																	<h3><a href="#">Another Subheading</a></h3>
+																	<ul class="meta">
+																		<li class="icon fa-clock-o">9 hours ago</li>
+																		<li class="icon fa-comments"><a href="#">27</a></li>
+																	</ul>
+																</article>
+															</li>
+															<li>
+																<article class="box post-summary">
+																	<h3><a href="#">And Another</a></h3>
+																	<ul class="meta">
+																		<li class="icon fa-clock-o">Yesterday</li>
+																		<li class="icon fa-comments"><a href="#">184</a></li>
+																	</ul>
+																</article>
+															</li>
+															<li>
+																<article class="box post-summary">
+																	<h3><a href="#">And Another</a></h3>
+																	<ul class="meta">
+																		<li class="icon fa-clock-o">2 days ago</li>
+																		<li class="icon fa-comments"><a href="#">286</a></li>
+																	</ul>
+																</article>
+															</li>
+															<li>
+																<article class="box post-summary">
+																	<h3><a href="#">And One More</a></h3>
+																	<ul class="meta">
+																		<li class="icon fa-clock-o">3 days ago</li>
+																		<li class="icon fa-comments"><a href="#">8,086</a></li>
+																	</ul>
+																</article>
+															</li>
+														</ul>
+														<a href="#" class="button alt">Browse Archives</a>
+												
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+							
+						</div>
+					</div>
+				</div>
+			</div>
 
-/* Second, Third and more Tiers	*/
-nav ul ul ul li {
-	position: absolute relative;
-	top:-58px; 
-	left:170px;
-}
+		<!-- Footer -->
+			<footer id="footer" class="container">
+				<div class="row 200%">
+					<div class="12u">
 
-       </style>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    
-                </div>
-                <div class="collapse navbar-collapse">
-                    <?php  $this->navigation('navigation')->menu()
-                            ->setPartial('album/partials/menu');
-                       echo $this->navigation()->menu()->render();
-                    ?>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-        <div class="container">
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>This is default Layout</p>
-            </footer>
-            
-        </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
-    </body>
+						<!-- About -->
+							<section>
+								<h2 class="major"><span>What's this about?</span></h2>
+								<p>
+									This is <strong>TXT</strong>, yet another free responsive site template designed by
+									<a href="http://n33.co">AJ</a> for <a href="http://html5up.net">HTML5 UP</a>. It's released under the
+									<a href="http://html5up.net/license/">Creative Commons Attribution</a> license so feel free to use it for
+									whatever you're working on (personal or commercial), just be sure to give us credit for the design.
+									That's basically it :)
+								</p>
+							</section>
+
+					</div>
+				</div>
+				<div class="row 200%">
+					<div class="12u">
+
+						<!-- Contact -->
+							<section>
+								<h2 class="major"><span>Get in touch</span></h2>
+								<ul class="contact">
+									<li><a class="icon fa-facebook" href="#"><span class="label">Facebook</span></a></li>
+									<li><a class="icon fa-twitter" href="#"><span class="label">Twitter</span></a></li>
+									<li><a class="icon fa-instagram" href="#"><span class="label">Instagram</span></a></li>
+									<li><a class="icon fa-dribbble" href="#"><span class="label">Dribbble</span></a></li>
+									<li><a class="icon fa-google-plus" href="#"><span class="label">Google+</span></a></li>
+								</ul>
+							</section>
+					
+					</div>
+				</div>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul class="menu">
+							<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+
+			</footer>
+
+	</body>
 </html>

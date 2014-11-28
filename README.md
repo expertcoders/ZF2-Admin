@@ -10,7 +10,7 @@ Installation
 Import zend.sql into you database server, You can find /data/zend.sql
 
 Configuration the credentials according to your database into
-```
+```php
 config/autoload/local.php.dist
 'db' => array(
         'username' => 'DATABASE_USER_NAME',
@@ -19,7 +19,7 @@ config/autoload/local.php.dist
 ```    
     
 Change these setting
-```
+```php
 "DATABASE_USER_NAME" to "YOUR_DATABASE_USER_NAME" and
 "DATABASE_PASSWORD" to "YOUR_DATABASE_USER_PASSWORD"
 ```
@@ -30,7 +30,7 @@ to change into host section,
 
 Configure DATABASE name, if your databae name is change, You can find these
 
-```
+```php
 /config/autoload/global.php
 urn array(
     'db' => array(
@@ -64,7 +64,7 @@ Paste all the copied files and directory in root directory
 
 Open index.php and edit the line number 6 and comment like this
 
-```
+```php
 
 //chdir(dirname(__DIR__));
 
@@ -73,7 +73,7 @@ Open index.php and edit the line number 6 and comment like this
 done!!
 
 Now you can access
-```
+```php
 
 http://localhost/yourprojectname/
 
