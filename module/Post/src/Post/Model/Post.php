@@ -15,6 +15,7 @@
      {
          $this->id     = (!empty($data['id'])) ? $data['id'] : null;
          $this->post = (!empty($data['post'])) ? $data['post'] : null;
+         $this->images  = (!empty($data['images'])) ? $data['images'] : null;
          $this->title  = (!empty($data['title'])) ? $data['title'] : null;
          $this->status  = (!empty($data['status'])) ? $data['status'] : 0;
          $this->user_id  = (!empty($data['user_id'])) ? $data['user_id'] : null;

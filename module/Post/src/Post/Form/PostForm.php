@@ -10,6 +10,7 @@ class PostForm extends Form
         // we want to ignore the name passed
         parent::__construct('post');
         $this->setAttribute('method', 'post');
+        $this->setAttribute('enctype','multipart/form-data');
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
@@ -27,9 +28,20 @@ class PostForm extends Form
         $this->add(array(
             'name' => 'post',
             'attributes' => array(
-                'type'  => 'Zend\Form\Element\Textarea',
+                //'type'  => 'Zend\Form\Element\Textarea',
+                'type'  => 'textarea',
+                'rows'=>'15',
                 'class'=>'form-control',
                 'required'=>true
+            ),
+        ));
+        
+         $this->add(array(
+            'name' => 'images',
+            'attributes' => array(
+                //'type'  => 'Zend\Form\Element\Textarea',
+                'type'  => 'file',
+                'required'=>false
             ),
         ));
         
@@ -62,17 +74,5 @@ class PostForm extends Form
             ),
         ));
     }
-    
-    /*
-     * $form   = new My\Form();
-$select = $form->get('selectCountries');
-
-$model    = new My\Countries();
-$listData = $model->getCountriesAsArray();
-
-$select->setValueOptions($listData);
-     * 
-     * 
-     * 
-     */
+ 
 }

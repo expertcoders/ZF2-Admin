@@ -79,4 +79,11 @@ return array(
             'default' => 'layout/default'
         )
     ),
+    'bjyauthorize'=>array(
+		'guards'=>array(
+			'BjyaAuthorize\Guard\Controller'=>array(
+				//
+			),
+		),
+    ),
 );

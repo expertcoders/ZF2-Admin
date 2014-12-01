@@ -7,15 +7,29 @@
  */
 ini_set('display_errors',1);
 define('SITEPATH',substr($_SERVER['PHP_SELF'], 0, -9));
+define('SITEURL','http://localhost/zend/zend5/ZendSkeletonApplication/public/');
+define('POST_IMG_DIR','/var/www/zend/zend5/ZendSkeletonApplication/public/img/Front/post_img/');
+define('POST_IMG_URL','img/Front/post_img/');
 $env = getenv('APP_ENV') ?: 'production';
 $modules=array('Application');
 if($env=='development'){
 	$modules[]='Album';
 	$modules[]='ZFTool';
 }
+//Add User Module
 $modules[]='User';
+
+//Add Post Module
 $modules[]='Post';
+
+//Add Admin Module
 $modules[]='Admin';
+
+//Add DoctrineModule and DoctrineORMModule
+$modules[]='DoctrineModule';
+$modules[]='DoctrineORMModule';
+
+
 return array(
     'modules' =>$modules,
     'module_listener_options' => array(

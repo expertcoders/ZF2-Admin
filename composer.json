@@ -12,7 +12,7 @@
         "zendframework/zendframework": "2.3.*",
         "zendframework/zftool": "dev-master",
 	"doctrine/common" : ">=2.1",
-	"zf-common/zfc-user-doctrin-orm":"2.*"
-
+        "doctrine/doctrine-orm-module": "0.*",
+        "doctrine/doctrine-module": "0.*"	
     }
 }
