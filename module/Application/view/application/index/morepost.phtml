@@ -1,0 +1,27 @@
+<?php echo 'dasd'.$this->A;
+if(!empty($this->paginator)){ 
+	foreach($this->paginator as $data){
+       print_r($data);?>
+<article class="box post">
+<header>
+	<h3><a href="#">Here's a really big heading</a></h3>
+	<p>With a smaller subtitle that attempts to elaborate</p>
+	<ul class="meta">
+        <li class="icon fa-user-o">15 minutes ago</li>
+		<li class="icon fa-clock-o">15 minutes ago</li>
+		<li class="icon fa-comments"><a href="#">8</a></li>
+	</ul>
+</header>
+<a href="#" class="image featured">
+   <img src="<?php echo $this->basePath()?>/img/Front/images/pic05.jpg" alt="" style="height:248px;" /></a>
+<p>
+	Phasellus quam turpis, feugiat sit amet ornare in, a hendrerit in lectus. Praesent 
+	semper mod quis eget mi. Etiam sed ante risus aliquam erat et volutpat. Praesent a 
+	dapibus velit. Curabitur sed nisi nunc, accumsan vestibulum lectus. Lorem ipsum 
+	dolor sit non aliquet sed, tempor et dolor.  Praesent a dapibus velit. Curabitur 
+	accumsan.
+</p>
+<a href="#" class="button">Continue Reading</a>
+</article>
+<br/>
+<?php }} ?>

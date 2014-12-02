@@ -1,6 +1,7 @@
-<?php namespace Post\Model;
+<?php namespace Application\Model;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Application\Model\Post;
 use Zend\Db\Sql\Select;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Db\Sql\Sql;
@@ -31,12 +32,14 @@ use Zend\Paginator\Paginator;
      private function queryRun($select){
          $sql = new Sql($this->dbAdapter);
          $statement = $sql->prepareStatementForSqlObject($select);
+         //print_r($statement);
          $resultSet = $statement->execute();
+         //print_r($resultSet);
          return $resultSet;
         
      }
 
-     public function fetchAll($paginated=false,$id=NULL)
+     public function fetchAll($paginated=false)
      {
          if ($paginated) {
              // create a new Select object for the table album
@@ -44,10 +47,7 @@ use Zend\Paginator\Paginator;
              $select->from(array('p' => 'post'))
               ->columns(array('id','title','images','post','status','created'))
               ->join('user', 'user.id=p.user_id',array('user_id'=>'id','first_name','last_name'));
-             if($id!=NULL){
-               $select->where('p.id <>'.$id);
-             }
-             $select->order(array('p.id DESC'));
+             $select->order(array('id DESC'));
              // create a new result set based on the Album entity
              
              $resultSetPrototype = new ResultSet();
@@ -70,9 +70,26 @@ use Zend\Paginator\Paginator;
             ->columns(array('id','title','post','status','created'))
             ->join('user', 'user.id=p.user_id',array('user_id'=>'id','first_name','last_name'));
             $select->order(array('id DESC'));
+           // $sql = $select->getSqlString();
+            //echo "$sql\n";
+            //print_r($select);
             //$resultSet = $this->tableGateway->selectWith($select);
             return $this->queryRun($select);
          }
+     }
+     
+     public function getLatestPost(){
+        $select = new Select();
+            $select->from(array('p' => 'post'))
+            ->columns(array('id','title','images','post','status','created'))
+            ->join('user', 'user.id=p.user_id',array('user_id'=>'id','first_name','last_name'));
+            $select->order(array('id DESC'));
+           // $sql = $select->getSqlString();
+            //echo "$sql\n";
+            //print_r($select);
+            //$resultSet = $this->tableGateway->selectWith($select);
+            return $this->queryRun($select);
+        
      }
 
      public function getPost($id)

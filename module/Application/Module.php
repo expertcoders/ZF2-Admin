@@ -11,6 +11,10 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+use Application\Model\Post;
+use Application\Model\PostTable;
 
 class Module 
 {
@@ -38,4 +42,38 @@ class Module
             ),
         );
     }
+    
+    
+     // Add this method:
+     public function getServiceConfig()
+     {
+         return array(
+             'factories' => array(
+                    // here begin the categoryTable factory
+                'Application\Model\PostTable' =>  function($sm)
+                {
+                    //get the tableGateway just below in his own factory
+                    $tableGateway = $sm->get('PostTableGateway');
+                    //inject the tableGateway in the Table
+                    $table = new PostTable($tableGateway);
+                    return $table;
+                },
+                //here is the tableGateway Factory for the category
+                'PostTableGateway' => function($sm)
+                {
+                    //get adapter to donnect dataBase
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    // create a resultSet
+                    $resultSetPrototype = new ResultSet();
+                    //define the prototype of the resultSet 
+                    // => what object will be cloned to get the results
+                    $resultSetPrototype->setArrayObjectPrototype(new Post());
+                    //here you define your database table (post) 
+                    //when you return the tableGateway to the PostTable factory
+                    return new TableGateway('post', $dbAdapter, null, $resultSetPrototype);
+                },
+             ),
+         );
+     }
+
 }

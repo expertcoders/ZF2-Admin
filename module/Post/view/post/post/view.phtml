@@ -1,14 +1,4 @@
-
-		<!-- Banner -->
-			<div id="banner-wrapper">
-				<section id="banner">
-					<h2>Welcome to ZF2 Blogging</h2>
-					<p>A full feature User, Admin, Blog Module</p>
-					<a href="<?php echo $this->url('post') ?>" class="button">Alright let's go</a>
-				</section>
-			</div>
-
-		<!-- Main -->
+<!-- Main -->
 			<div id="main-wrapper">
 				<div id="main" class="container">
 					<!--Hightlights Section Start Here-->
@@ -23,7 +13,7 @@
 
 							<!-- Blog -->
 								<section class="box blog">
-									<h2 class="major"><span>Latest Headline</span></h2>
+									<h2 class="major"><span>Post Destails</span></h2>
 									
 									<div>
 										<div class="row">
@@ -32,8 +22,7 @@
 												
 													<!-- Featured Post -->
 														<!--More Post Start Here-->
-														<?php echo $this->A;
-                                                        echo $this->morepost;?>
+														<?php  echo $this->morepost;?>
 														<!--More Post Ends Here-->
 														<br/>
 												</div>
@@ -45,53 +34,26 @@
 											
 													<!-- Archives -->
 														<ul class="divided">
-															<li>
+															<?php
+                                                            foreach($this->paginator as $datas){?>
+                                                           <li>
 																<article class="box post-summary">
-																	<h3><a href="#">A Subheading</a></h3>
+																	<h3><a style="text-transform: none;font-family: sans-serif; font-size: 14px;" href="#"><?php echo $datas->title;?></a></h3>
+                                                                    <a href="<?php echo $this->url('post'); ?>view/<?php echo $datas->id; ?>" class="image featured">
+<img src="<?php echo $this->basePath()?>/img/Front/post_img/<?php echo $datas->images?>" alt="" width="280px" height="160"/></a>
+                                                                    
+                                                                    <p><?php echo substr($datas->post,0,100);?></p>
 																	<ul class="meta">
 																		<li class="icon fa-clock-o">6 hours ago</li>
 																		<li class="icon fa-comments"><a href="#">34</a></li>
 																	</ul>
 																</article>
 															</li>
-															<li>
-																<article class="box post-summary">
-																	<h3><a href="#">Another Subheading</a></h3>
-																	<ul class="meta">
-																		<li class="icon fa-clock-o">9 hours ago</li>
-																		<li class="icon fa-comments"><a href="#">27</a></li>
-																	</ul>
-																</article>
-															</li>
-															<li>
-																<article class="box post-summary">
-																	<h3><a href="#">And Another</a></h3>
-																	<ul class="meta">
-																		<li class="icon fa-clock-o">Yesterday</li>
-																		<li class="icon fa-comments"><a href="#">184</a></li>
-																	</ul>
-																</article>
-															</li>
-															<li>
-																<article class="box post-summary">
-																	<h3><a href="#">And Another</a></h3>
-																	<ul class="meta">
-																		<li class="icon fa-clock-o">2 days ago</li>
-																		<li class="icon fa-comments"><a href="#">286</a></li>
-																	</ul>
-																</article>
-															</li>
-															<li>
-																<article class="box post-summary">
-																	<h3><a href="#">And One More</a></h3>
-																	<ul class="meta">
-																		<li class="icon fa-clock-o">3 days ago</li>
-																		<li class="icon fa-comments"><a href="#">8,086</a></li>
-																	</ul>
-																</article>
-															</li>
+                                                            <?php } ?>
+                                                            <li><a href="#" class="button alt current">Browse More</a></li>
 														</ul>
-														<a href="#" class="button alt">Browse Archives</a>
+                                                    
+														
 												
 												</div>
 											</div>

@@ -1,0 +1,31 @@
+<?php 
+if(!empty($this->paginator)){ 
+	foreach($this->paginator as $data){
+       //print_r($data);?>
+<article class="box post">
+<header>
+	<p><a href="#"><?php echo $data->title; ?></a></p>
+	<ul class="meta">
+	   <li class="icon fa-user-o">By: <?php echo $data->first_name ?>&nbsp;<?php echo $data->last_name ?></li>
+       <li class="icon fa-clock-o"><?php echo $data->created ?></li>
+		<li class="icon fa-comments"><a href="#">8</a></li>
+	</ul>
+</header>
+<a href="#" class="image featured"><img src="<?php echo $this->basePath()?>/img/Front/post_img/<?php echo $data->images?>" alt="" /></a>
+<p style="text-transform: none;font-family: sans-serif; font-size: 14px;">
+<?php echo nl2br($data->post); ?>
+</p>
+</br>
+<a href="#" class="button">Continue Reading</a>
+</article>
+<br/>
+<?php }} ?>
+<center>
+<?php echo $this->paginationControl(
+                           $this->paginator,
+                           'Jumping',
+                           array('partial/paginator.phtml', 'Post'),
+                           array('route' => 'application')
+                  );
+?>
+</center>

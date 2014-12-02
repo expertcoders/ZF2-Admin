@@ -1,0 +1,40 @@
+	<div class="row 200%">
+						<div class="12u">
+
+							<!-- Features -->
+								<section class="box features">
+									<h2 class="major"><span>Latest Post</span></h2>
+									<div>
+										<div class="row">
+                                           <?php if(!empty($this->latestPaginator)){ 
+                                                 $i=1;
+                                                 foreach($this->latestPaginator as $data){
+                                                    
+                                                    if($i<=4){
+                                                    
+                                             ?>
+											<div class="3u">
+												
+												<!-- Feature -->
+													<section class="box feature">
+														<a href="<?php echo $this->url('post'); ?>view/<?php echo $data['id']; ?>" class="image featured"><img src="<?php echo $this->basePath()?>/img/Front/post_img/<?php echo $data['images']?>" alt="" width="280px" height="160"/></a>
+														<p style="margin-bottom:5px"><a href="<?php echo $this->url('post'); ?>view/<?php echo $data['id']; ?>"><?php echo substr($data['title'],0,30);?></a></p>
+														<p style="text-transform: none;font-family: sans-serif; font-size: 14px; text-align:left"><?php echo substr($data['post'],0,150);?></p>
+													</section>
+										
+											</div>
+                                           <?php } $i++;}} ?>
+										</div>
+										<div class="row">
+											<div class="12u">
+												<ul class="actions">
+													<li><a href="#" class="button big">Read More</a></li>
+													<li><a href="#" class="button alt big">Submit New Post</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</section>
+
+						</div>
+					</div>

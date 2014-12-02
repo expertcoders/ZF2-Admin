@@ -122,11 +122,33 @@ class UserController extends AbstractActionController
 			return $this->redirect()->toRoute('user', array('controller' => 'user', 'action' => 'login'));
 		} 
 
-
+/*
+	 * Check Auth for the User if Its needs 
+	 */
+	 private function isUserInAuth(){
+		$auth = new AuthenticationService();
+	    if ($auth->hasIdentity()) {
+			return true;
+		}else{
+			return false;
+		}
+	 }
+	 
+	 
+	 private function getAuthIdentities(){
+		 $auth = new AuthenticationService();
+		 return $auth;
+	 }
+	 
+     
+     
 
     public function loginAction()
     {
        
+        if ($this->isUserInAuth()){
+           return $this->redirect()->toRoute('user', array('controller'=>'user','action'=>'dashboard'));
+        }
         $form = new UserForm();
         $form->get('submit')->setValue('Login');
         $this->layout('layout/login');

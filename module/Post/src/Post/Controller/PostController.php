@@ -14,12 +14,8 @@ use Zend\Filter\File\RenameUpload;
  class PostController extends AbstractActionController
  {
      
-     protected $postTable;
-     
-     protected $dbAdapter;
-
-
-    
+     protected $postTable;     
+     protected $dbAdapter;    
      
      public function indexAction()
      {
@@ -175,6 +171,7 @@ use Zend\Filter\File\RenameUpload;
 						$adapter->setDestination(POST_IMG_DIR.'/');
 						//$adapter->getDestination();
 						
+						//Rename the Image file name that are uploaded on the server
 						$adapter->addFilter('Rename',
 							array('target' => POST_IMG_DIR.'/'.$trgetfileName,
 							'overwrite' => true)
@@ -199,6 +196,7 @@ use Zend\Filter\File\RenameUpload;
 						}
 						if($str=='')
 						{
+							$post['images']=$trgetfileName;
 							$lastInsertedValue=$this->getPostTable()->savePost($post);
 							if($lastInsertedValue > 0){
 								$this->flashMessenger()->addMessage("Post has been created suucessfully.");
@@ -418,7 +416,81 @@ return $rand_value;
 }
 
 
- }
+
+    public function viewAction(){
+      $this->layout='layout';
+      $id = (int) $this->params()->fromRoute('id', 0);
+      $postView = $this->getPostTable()->getPost($id);
+     
+      
+      //Data with pagination
+      $paginator = $this->getPostTable()->fetchAll(true,$id);
+      // set the current page to what has been passed in query string, or to 1 if none set
+      $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+      // set the number of items per page to 10
+      $paginator->setItemCountPerPage(5);
+      
+      $view = new ViewModel(array('post'=>$postView,'paginator'=>$paginator));
+      
+      
+     
+      //Latest Post Goes Here
+      $header=new ViewModel();
+      $header=$header->setTemplate('post/post/header.phtml');
+      
+      
+      $SinglePost=new ViewModel(array('post'=>$postView));
+      $SinglePost=$SinglePost->setTemplate('post/post/morepost.phtml');
+       
+      $view->addChild($header, 'header')
+	         ->addChild($SinglePost, 'morepost');
+       return $view;
+    }
+    
+    
+    
+    
+    public function AllAction(){
+      $this->layout='layout';
+      //Data with pagination
+      $paginator = $this->getPostTable()->fetchAll(true);
+      // set the current page to what has been passed in query string, or to 1 if none set
+      $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+      // set the number of items per page to 10
+      $paginator->setItemCountPerPage(5);
+      
+      $view = new ViewModel();
+      
+      //Latest Post Goes Here
+      $header=new ViewModel();
+      $header=$header->setTemplate('post/post/header.phtml');
+      
+      
+      $allPost=new ViewModel(array('paginator'=>$paginator));
+      $allPost=$allPost->setTemplate('post/post/allpost.phtml');
+       
+      $view->addChild($header, 'header')
+	         ->addChild($allPost, 'allPost');
+       return $view;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    }
 
 
 ?>

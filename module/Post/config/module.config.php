@@ -22,6 +22,23 @@ return array(
                          'controller' => 'Post\Controller\Post',
                          'action'     => 'index',
                      ),
+                          'may_terminate' => true,
+                'child_routes' => array(
+                    'user' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/user[/:action][/:id]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\User',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+				   ),
                  ),
              ),
          ),

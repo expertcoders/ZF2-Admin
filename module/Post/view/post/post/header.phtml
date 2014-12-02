@@ -1,0 +1,13 @@
+<!-- Nav -->
+<nav id="nav" class="skel-layers-fixed">
+      <ul>
+         <li class="current"><a href="<?php echo $this->url('home') ?>">Home</a></li>
+         <li><a href="<?php echo $this->url('post') ?>">Blog</a></li>
+         <li><a href="<?php echo $this->url('user',array('action'=>'login')) ?>">Login</a>
+         <ul>
+                  <li><a href="<?php echo $this->url('admin',array('action'=>'login')) ?>">Admin Login</a></li>
+                  <li><a href="<?php echo $this->url('user',array('action'=>'login')) ?>">User Login</a></li>
+         </ul>
+         </li>
+      </ul>
+</nav>

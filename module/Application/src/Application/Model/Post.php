@@ -1,4 +1,4 @@
-<?php namespace Post\Model;
+<?php namespace Application\Model;
 
 
  class Post
