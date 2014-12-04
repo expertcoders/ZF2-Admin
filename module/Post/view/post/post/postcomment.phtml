@@ -1,0 +1,83 @@
+<?php			$form = $this->form;
+				$form->prepare();
+				echo $this->form()->openTag($form);
+				echo $this->formHidden($form->get('id')); ?>
+				<div class="form-group">
+					<label class="control-label" for="inputSuccess">Post Comment</label>
+					<?php echo $this->formRow($form->get('postcomment'));?>
+					
+				</div>
+				<?php                          
+					//echo $this->formSubmit($form->get('submit'));
+					echo $this->form()->closeTag();
+				?>
+				<div id="response" style="display:none;padding:8px;font-size:12px;color:#ff6900;">please wait..</div>
+				<div id="CommentBox" style="width:680px;margin-top:35px;height:auto">
+					<?php if(!empty($this->commentData)){
+							foreach($this->commentData as $data){
+								//print_r($data);
+					?>
+				<div id="comments" style="margin-bottom:5px;min-height:60px;width:125%;padding:5px;border: solid 1px #dfdfdf;position:absolute;-webkit-box-shadow: -4px 2px 21px 0px rgba(29, 46, 36, 0.22);
+-moz-box-shadow: -4px 2px 21px 0px rgba(29, 46, 36, 0.22);
+box-shadow: -4px 2px 21px 0px rgba(29, 46, 36, 0.22);position:relative">
+						<div class="userPic" style="width:50px;height:50px;float:left;">
+							<img src="<?php echo $this->basePath()?>/img/Front/images/avatar2.png" alt="" width="45px" height="45px" />
+					    </div>
+						<div class="userComment" style="width:94%;float:right;left:65px;padding-left:15px;font-size:12px;">
+						<p><strong><?=$data['first_name']?>&nbsp;<?=$data['last_name']?> (<?=date('d M,Y',strtotime($data['created']))?>)</strong></p>	
+						<p style="padding-top:5px;"><?php echo $data['comment']; ?></p>
+						</div>
+					</div>
+					<?php }} ?>
+				</div>
+<script>
+function checkSubmit(e)
+{
+   if(e && e.keyCode == 13)
+   {
+	  var commentData=$('#postcomment').val(); 
+	  var pid="<?=$this->postId?>"; 
+      $.ajax({
+		url : '<?php echo $this->url('post',array('action'=>'postcomment'))?>',
+		type: 'POST',
+		data: {'commentData': commentData,'pid':pid},
+		beforeSend : function() {
+			$('#response').fadeIn();
+			/* Logic before ajax request sent */
+		},
+		success: function(data, status){
+			if(data.status=='success'){
+				$("#response").html(data.message);	
+				var str="<div style=\"min-height:60px;width:125%;width:125%;padding:5px;border: solid 1px #dfdfdf;margin-bottom:5px;-webkit-box-shadow: -4px 2px 21px 0px rgba(29, 46, 36, 0.22);-moz-box-shadow: -4px 2px 21px 0px rgba(29, 46, 36, 0.22);box-shadow: -4px 2px 21px 0px rgba(29, 46, 36, 0.22);\" id=\"comments\"><div style=\"width:50px;height:50px;float:left;\" class=\"userPic\"><img width=\"45px\" height=\"45px\" alt=\"\" src=\"/zend/zend5/ZendSkeletonApplication/public/img/Front/images/avatar2.png\"></div><div style=\"width:94%;float:right;left:65px;padding-left:15px;font-size:12px;\" class=\"userComment\"><p><strong><?php echo $this->identity->first_name.'&nbsp'.$this->identity->last_name;?> (<?php echo date('d M,Y');?>)</strong></p><p style=\"padding-top:5px;\">"+commentData+"</p></div></div>";				
+				$('#CommentBox').prepend(str);	
+			}else{
+				$("#response").html(data.message);
+			}
+		},
+		error : function(xhr, textStatus, errorThrown) {
+			if (xhr.status === 0) {
+				alert('Not connect.\n Verify Network.');
+			} else if (xhr.status == 404) {
+				alert('Requested page not found. [404]');
+            } else if (xhr.status == 500) {
+            	alert('Server Error [500].');
+            } else if (errorThrown === 'parsererror') {
+            	alert('Requested JSON parse failed.');
+            } else if (errorThrown === 'timeout') {
+            	alert('Time out error.');
+            } else if (errorThrown === 'abort') {
+            	alert('Ajax request aborted.');
+            } else {
+            	alert('There was some error. Try again.');
+            }
+		},
+		complete: function(){
+			$('#postcomment').val('')
+			// Perform any operation need on success/error
+		}
+	});
+    return false;
+    //document.forms[0].submit();
+   }
+}
+</script>

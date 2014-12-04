@@ -11,8 +11,6 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Post\Model\Post;
-use Post\Model\PostTable;
 
 class IndexController extends AbstractActionController
 {

@@ -60,6 +60,11 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+         'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory', // <-- add this
+     ),
+        
+        
     ),
     'translator' => array(
         'locale' => 'en_US',
@@ -92,6 +97,7 @@ return array(
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),
+        'strategies' => array('ViewJsonStrategy'),
     ),
     // Placeholder for console routes
     'console' => array(

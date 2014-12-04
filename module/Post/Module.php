@@ -1,9 +1,9 @@
 <?php
 namespace Post;
-
-
 use Post\Model\Post;
 use Post\Model\PostTable;
+use Post\Model\Postcomment;
+use Post\Model\CommentTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -50,6 +50,18 @@ use Zend\Db\TableGateway\TableGateway;
                      $resultSetPrototype->setArrayObjectPrototype(new Post());
                      return new TableGateway('post', $dbAdapter, null, $resultSetPrototype);
                  },
+                 'Post\Model\CommentTable' =>  function($sm) {
+                     $tableGateway = $sm->get('CommentTableGateway');
+                     $table = new CommentTable($tableGateway);
+                     return $table;
+                 },
+                 'CommentTableGateway' => function ($sm) {
+                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                     $resultSetPrototypes = new ResultSet();
+                     $resultSetPrototypes->setArrayObjectPrototype(new Postcomment());
+                     return new TableGateway('postcomments', $dbAdapter, null, $resultSetPrototypes);
+                 },
+           
              ),
          );
      }

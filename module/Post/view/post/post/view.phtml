@@ -25,8 +25,15 @@
 														<?php  echo $this->morepost;?>
 														<!--More Post Ends Here-->
 														<br/>
+														<div class="row 100%">
+															<div class="12u">
+																<?php echo $this->commentPost;?>
+															</div>
+														</div>
+												
 												</div>
 											</div>
+											
 											
 											
 											<div class="3u">
@@ -38,11 +45,12 @@
                                                             foreach($this->paginator as $datas){?>
                                                            <li>
 																<article class="box post-summary">
-																	<h3><a style="text-transform: none;font-family: sans-serif; font-size: 14px;" href="#"><?php echo $datas->title;?></a></h3>
-                                                                    <a href="<?php echo $this->url('post'); ?>view/<?php echo $datas->id; ?>" class="image featured">
-<img src="<?php echo $this->basePath()?>/img/Front/post_img/<?php echo $datas->images?>" alt="" width="280px" height="160"/></a>
+																	<h3><a style="text-transform: none;font-family: sans-serif; font-size: 13px;font-weight:bold" href="<?php echo $this->url('post'); ?>view/<?php echo $datas->id; ?>"><?php echo $datas->title;?></a></h3>
+                                                                    <p></p><a href="<?php echo $this->url('post'); ?>view/<?php echo $datas->id; ?>" class="image featured">
+<img src="<?php echo $this->basePath()?>/img/Front/post_img/<?php echo $datas->images?>" alt="" width="280px" height="160"/></a></p>
                                                                     
-                                                                    <p><?php echo substr($datas->post,0,100);?></p>
+                                                                    <p style="font-size:13px"><?php echo substr($datas->post,0,100);?></p>
+                                                                    <br/>
 																	<ul class="meta">
 																		<li class="icon fa-clock-o">6 hours ago</li>
 																		<li class="icon fa-comments"><a href="#">34</a></li>
@@ -50,11 +58,9 @@
 																</article>
 															</li>
                                                             <?php } ?>
-                                                            <li><a href="#" class="button alt current">Browse More</a></li>
+                                                            <li><a href="<?php echo $this->url('post'); ?>all" class="button alt current">Browse More</a></li>
 														</ul>
-                                                    
 														
-												
 												</div>
 											</div>
 										</div>

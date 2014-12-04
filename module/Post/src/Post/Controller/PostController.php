@@ -2,21 +2,37 @@
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Post\Model\Post;          // <-- Add this import
+use Post\Model\Postcomment;          // <-- Add this import
 use Zend\View\Model\ViewModel;
 use Post\Form\PostForm;       // <-- Add this import
+use Post\Form\CommentForm;       // <-- Add this import
+
 use Zend\Authentication\AuthenticationService;
 use Zend\Captcha\AdapterInterface;
 use Zend\Validator\File\Size;
 use Zend\Http\PhpEnvironment\Request; // For Reanmee
 use Zend\Filter\File\Rename;
 use Zend\Filter\File\RenameUpload;
+use Zend\View\Model\JsonModel;
 
  class PostController extends AbstractActionController
  {
      
      protected $postTable;     
+     protected $PostCommentTable;     
      protected $dbAdapter;    
      
+     
+     public function getPostCommentTable(){
+        if(!$this->PostCommentTable){
+            return $this->PostCommentTable = $this->getServiceLocator()
+                ->get('Post\Model\CommentTable');
+        }
+    }
+    
+    
+    
+    
      public function indexAction()
      {
 	    if ($this->isUserInAuth()){
@@ -421,6 +437,9 @@ return $rand_value;
       $this->layout='layout';
       $id = (int) $this->params()->fromRoute('id', 0);
       $postView = $this->getPostTable()->getPost($id);
+      
+      $forms= new CommentForm();
+      $forms->get('submit')->setValue('Submit');
      
       
       //Data with pagination
@@ -438,12 +457,22 @@ return $rand_value;
       $header=new ViewModel();
       $header=$header->setTemplate('post/post/header.phtml');
       
+      //Get All the comments of this post
+      $commentData=$this->getPostCommentTable()->getAllCommentsOfPost(false,$id);
+      //print_r($commentData);
+      //die;
+      $identity = $this->getAuthIdentities()->getIdentity();
+      $commentPost=new ViewModel(array('form'=>$forms,'postId'=>$id,'commentData'=>$commentData,'identity'=>$identity)); 
+      $commentPost->setTemplate('post/post/postcomment.phtml');
+      
       
       $SinglePost=new ViewModel(array('post'=>$postView));
       $SinglePost=$SinglePost->setTemplate('post/post/morepost.phtml');
        
       $view->addChild($header, 'header')
-	         ->addChild($SinglePost, 'morepost');
+	         ->addChild($SinglePost, 'morepost')
+	         ->addChild($commentPost,'commentPost');
+	         
        return $view;
     }
     
@@ -452,12 +481,17 @@ return $rand_value;
     
     public function AllAction(){
       $this->layout='layout';
+      
       //Data with pagination
       $paginator = $this->getPostTable()->fetchAll(true);
       // set the current page to what has been passed in query string, or to 1 if none set
       $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
       // set the number of items per page to 10
       $paginator->setItemCountPerPage(5);
+      
+      
+      //Get Data from right Side
+      
       
       $view = new ViewModel();
       
@@ -476,7 +510,43 @@ return $rand_value;
     
     
     
-    
+    /*
+     * Post Comment By the User
+     */
+     public function postcommentAction(){
+	   $result = array('status' => 'error', 'message' => 'There was some error. Try again.');
+	   $request = $this->getRequest();
+		if($request->isXmlHttpRequest())
+		{
+			if($this->isUserInAuth())
+			{
+				if($request->getPost('commentData')==''){
+					$result = array('status' => 'error', 'message' => 'Please enter your comment first.');
+					return new JsonModel($result);
+					exit;
+				}else{
+					$commentData=$request->getPost('commentData');
+					$post_id=$request->getPost('pid');
+					$saveData['comment']=$commentData;
+					
+					$saveData['id']=0;
+					$saveData['user_id']=$this->getAuthIdentities()->getIdentity()->id;
+					$saveData['post_id']=$post_id;	        
+					$saveData['created']=date('Y-m-d H:i:s');	  
+					$this->getPostCommentTable()->savePostComment($saveData);
+					$header=new ViewModel();
+					$header=$header->setTemplate('post/post/header.phtml');
+					$result = array('status' => 'success', 'message' => 'Thanks you!!, Your comment has beed submitted.');
+					return new JsonModel($result);
+ 				}
+			}else{
+				$result = array('status' => 'error', 'message' => 'You have to login first for doing any comment.');
+				return new JsonModel($result);
+			}
+		}else{
+			return $this->redirect()->toRoute('user', array('controller'=>'user','action'=>'login'));
+		}
+	 }
     
     
     
